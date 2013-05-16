@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="moosend-javascriptwrapper">
+    <target name="concatenate" description="Concatenate all js files">
+        <concat destfile="bin/moosend.js">
+            <fileset dir="src/core" includes="*.js" />
+            <fileset dir="src" includes="*.js" />
+        </concat>
+    </target>
+
+    <target name="compress" depends="concatenate" description="Compress moosend.js to moosend-min.js">
+        <apply executable="java" parallel="false">
+            <filelist dir="bin" files="moosend.js" />
+            <arg line="-jar" />
+            <arg path="yuicompressor-2.4.7.jar" />
+            <srcfile />
+            <arg line="-o" />
+            <mapper type="glob" from="*.js" to="bin/*-min.js" />
+            <targetfile />
+        </apply>
+    </target>
+</project>

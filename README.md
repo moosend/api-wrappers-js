@@ -45,7 +45,7 @@ Usage
 To use, simply link the api.js in your html files and use the methods available to make requests. For more information you can follow the examples below.
 
 ```html
-<script src="/file-path-to/api.js"></script>
+<script src="/file-path-to/moosend-min.js"></script>
 ```
 
 Examples
@@ -58,14 +58,15 @@ Subscribers
 - Subscribe
 
 ```javascript
-	var mailingListId = '0000-00000-000000-0000';
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+
+	var mailingListId = 'YOUR_MAILING_LIST_ID';
 	var subscriberName = 'John Doe';
 	var subscriberEmail = 'john.doe@some-domain.com';
-	AddSubscriberForm subscriberForm = new AddSubscriberForm(mailingListId, subscriberEmail, subscriberName);
-	subscriberForm.CustomFields.Age=45;
-	subscriberForm.CustomFields.Country=USA;
 
-	MoosendAPI.Subscribers.Subscribe(subscriberForm, function(error, response) {
+	var subscriber = new AddSubscriberForm(mailingListId, subscriberEmail, subscriberName);
+
+	MoosendAPI.Subscribers.Subscribe(subscriber, function(error, response) {
 		if (error) alert(error);
 		else alert(JSON.stringify(response));
 	});
@@ -74,6 +75,8 @@ Subscribers
 - Unsubscribe
 
 ```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+
 	var mailingListId = '0000-00000-000000-0000';
 	var subscriberEmail = 'john.doe@some-domain.com';
 	
@@ -87,11 +90,55 @@ Lists
 
 - Get all
 
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+
+	var page = 1;
+	var pageSize = 10;
+
+	MoosendAPI.MailingLists.GetMailingLists(page, pageSize, function(e, data) {
+		if (e) alert(e);
+		if (data) alert(JSON.stringify(data));
+	});
+```
+
 - Get all subscribers
+
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+	var mailingListId = 'YOUR_MAILING_LIST_ID';
+
+	MoosendAPI.MailingLists.GetSubscribersForMailingList(mailingListId, 'Subscribed', function(e, data) {
+			if (e) alert(e);
+			if (data) alert(JSON.stringify(data));
+	});
+```
 
 - Create
 
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+	var mailingList = new CreateMailingListForm('Some new test list');
+
+	MoosendAPI.MailingLists.Create(mailingList, function(e, data) {
+		alert(e);
+		alert(data);
+	});
+```
+
 - Get One
+
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+
+	var mailingListId = 'YOUR_MAILING_LIST_ID';
+
+	MoosendAPI.MailingLists.GetMailingListDetails(mailingListId, function(e, data) {
+		if (e) alert(e);
+		if (data) alert(JSON.stringify(data));
+	});
+```
+
 
 Campaigns
 
