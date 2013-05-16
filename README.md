@@ -55,7 +55,7 @@ Wrapper Examples
 
 Subscribers
 
-- Subscribe
+- Subscribe a subscriber to your mailing list
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -72,7 +72,7 @@ Subscribers
 	});
 ```
 
-- Unsubscribe
+- Unsubscribe a subscriber from a mailing list
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -88,7 +88,7 @@ Subscribers
 
 Lists
 
-- Get all
+- Get all mailing lists in your account
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -102,7 +102,7 @@ Lists
 	});
 ```
 
-- Get all subscribers
+- Get all subscribers from a mailing list
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -114,7 +114,7 @@ Lists
 	});
 ```
 
-- Create
+- Create a mailing list
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -126,7 +126,7 @@ Lists
 	});
 ```
 
-- Get One
+- Get a single subscriber from a mailing list
 
 ```javascript
 	MoosendAPI.ApiKey = 'YOUR_API_KEY';
@@ -142,10 +142,64 @@ Lists
 
 Campaigns
 
-- Create
+- Create a new draft campaign (Nothing will be sent to any of your recipients)
 
-- Send test
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
 
-- Send
+	var campaignSubj = 'Some subject';
+	var campaignName = 'Some campaign';
+	var mailingListId = 'YOUR_MAILING_LIST_ID';
+	var senderEmailAddress = 'YOUR_SENDER_SIGNATURE_EMAIL_ADDRESS';
+	var campaignLocation = 'THE_WEB_LOCATION_OF_YOUR_CAMPAIGN';
 
-- Get with statistics
+	var campaign = new CreateCampaignForm(campaignName, campaignSubj, senderEmailAddress, mailingListId, campaignLocation);
+	campaign.ConfirmationToEmail = 'SOME_CONFIRMATION_EMAIL'; //optional
+
+	MoosendAPI.Campaigns.CreateDraft(campaign, function(error, response) {
+		if (error) alert(error);
+		else alert(JSON.stringify(response));
+	});
+```
+
+- Send a set of test emails of a given campaign
+
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+		
+	var campaignId = 'YOUR_CAMPAIGN_ID';
+	var testEmails = ['email1@domain.com', 'email2@domain.com'];
+
+	var testCampaign = new TestCampaignForm(campaignId, testEmails);
+	
+	MoosendAPI.Campaigns.SendCampaignTest(TestCampaignForm, function(error, response) {
+		if (error) alert(error);
+		else alert(JSON.stringify(response));
+	});
+```
+
+- Send the given campaign to all active subscribers in the linked mailing list
+
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+		
+	var campaignId = 'YOUR_CAMPAIGN_ID';
+	
+	MoosendAPI.Campaigns.Send(campaignId, function(error, response) {
+		if (error) alert(error);
+		else alert(JSON.stringify(response));
+	});
+```
+
+- Get a summary of statistics for the given campaign (assuming you have sent the campaign already). For more detailed statistics look at the other methods in the MoosendAPI.Campaigns namespace (e.g. GetCampaignStatistics, GetActivityByLocation, GetLinkActivity)
+
+```javascript
+	MoosendAPI.ApiKey = 'YOUR_API_KEY';
+		
+	var campaignId = 'YOUR_CAMPAIGN_ID';
+	
+	MoosendAPI.Campaigns.GetCampaignSummary(campaignId, function(error, response) {
+		if (error) alert(error);
+		else alert(JSON.stringify(response));
+	});
+```

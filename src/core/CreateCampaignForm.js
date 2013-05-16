@@ -20,7 +20,7 @@ CreateCampaignForm.prototype.validate = function() {
     validation.valid = false;
     validation.errors.push('SenderEmail is a required parameter for CreateCampaignForm object');
   }
-  if (!this.MailingListID) { 
+  if (!this.MailingListId) { 
     validation.valid = false;
     validation.errors.push('MailingListID is a required parameter for CreateCampaignForm object');
   }
