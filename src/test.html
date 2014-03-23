@@ -1,0 +1,10 @@
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="api.js"></script>
+
+<script>
+    MoosendAPI.ApiKey = 'b254e115-41c7-4d5f-8e76-cf0f810baa81';
+    MoosendAPI.Subscribers.RecordAction('yannis@moosend.com', 'test', [{ "make": "sony" }, { "price": 500 }], function (error, data) {
+        alert(data);
+        alert(error);
+    });
+</script>

@@ -69,7 +69,7 @@ function _perfCall(urlPath, method, form, callback, params) {
         params = callback;
 		callback = form; 
 		form = null;
-	}
+    }
 
 	if (!MoosendAPI.ApiKey) { 
 		callback('Please set your api key in MoosendAPI.ApiKey');
@@ -83,7 +83,7 @@ function _perfCall(urlPath, method, form, callback, params) {
 
 	_ajax({
 	    data: form,
-	    files: files,
+	    //files: files,
 	    type: method,
 	    url: MoosendAPI.Endpoint + urlPath,
 	    success: function (json) {
@@ -252,14 +252,22 @@ var MoosendAPI = {
         Unsubscribe: function (callback) {
 
         },
+        RecordAction: function(email, actionType, properties, callback) {
+            if (!email) callback('Email is a required parameter when calling RecordAction');
+            else if (!actionType) callback('ActionType is a required parameter when calling RecordAction');
+            else {
+                var urlPath = '/actions/create.json?email=' + email;
+                _perfCall(urlPath, 'POST', { "ActionType": actionType, "Email": email, "Properties": properties }, callback);
+            }
+        },
         /* This method allows you to add multiple members in a mailing list with a single call. If some members already 
         /* exist, they will be updated. If you try to add an email with an invalid email address, this member will be ignored, 
         /* as the process will skip to the next member automatically. */
         /* Web Documentation at http://moosend.com/api/subscribers#SubscribeAll */
         SubscribeMany: function (mailingListId, subscribers, callback) {
-            if (!mailingListId) callback('MailingListID is a required parameter when calling AddMultipleSubscribers');
-            else if (!subscribers) callback('Subscribers array is a required parameter when calling AddMultipleSubscribers');
-            else if (subscribers.length && subscribers.length > 0) callback('Subscribers array must have at least one entry when calling AddMultipleSubscribers');
+            if (!mailingListId) callback('MailingListID is a required parameter when calling SubscribeMany');
+            else if (!subscribers) callback('Subscribers array is a required parameter when calling SubscribeMany');
+            else if (subscribers.length && subscribers.length > 0) callback('Subscribers array must have at least one entry when calling SubscribeMany');
             else {
                 var noWithNoName = 0;
                 var noWithNoEmail = 0;
