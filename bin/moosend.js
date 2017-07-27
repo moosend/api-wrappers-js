@@ -232,7 +232,7 @@ function _perfCall(urlPath, method, form, callback, params) {
 
 var MoosendAPI = {
     Mode: 'data',
-    Endpoint: 'http://api.moosend.com',
+    Endpoint: 'http://api.moosend.com/v2',
     Campaigns: {
         /* Returns a list of all campaigns in your account with detailed infomation. Because the results from this call 
         /* could be quite big, paging information is required as input. */
@@ -344,7 +344,7 @@ var MoosendAPI = {
             if (!mailingListId) callback('MailingListID is a required parameter when calling GetSubscriberDetails');
             else if (!email) callback('Email is a required parameter when calling GetSubscriberDetails');
             else {
-                var urlPath = '/subscribers/' + mailingListId + '/subscribers/view.json?email=' + email;
+                var urlPath = '/subscribers/' + mailingListId + '/view.json?email=' + email;
 
                 _perfCall(urlPath, 'GET', callback);
             }
@@ -413,7 +413,7 @@ var MoosendAPI = {
                 if (noWithNoName > 0) callback(noWithNoName + ' entries in the Subscribers array are missing the required Name parameter when calling AddMultipleSubscribers');
                 else if (noWithNoEmail > 0) callback(noWithNoEmail + ' entries in the Subscribers array are missing the required Email parameter when calling AddMultipleSubscribers');
                 else {
-                    var urlPath = '/subscribers/' + mailingListId + '/subscribers/subscribe_many.json?email=' + email;
+                    var urlPath = '/subscribers/' + mailingListId + '/subscribe_many.json?email=' + email;
 
                     _perfCall(urlPath, 'POST', { Members: subscribers }, callback);
                 }
