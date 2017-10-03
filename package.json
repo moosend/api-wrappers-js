@@ -1,0 +1,26 @@
+{
+  "name": "moosend-api",
+  "version": "PLACEHOLDER_VERSION",
+  "description": "This is an JS implementation of the Moosend v3 API",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --recursive"
+  },
+  "browser": {
+    "fs": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mooTheo/Javascript-Moosend-Wrapper"
+  },
+  "homepage": "https://github.com/mooTheo/Javascript-Moosend-Wrapper#readme",
+  "dependencies": {
+    "superagent": "3.5.2"
+  },
+  "devDependencies": {
+    "mocha": "~2.3.4",
+    "sinon": "1.17.3",
+    "expect.js": "~0.3.1"
+  }
+}
